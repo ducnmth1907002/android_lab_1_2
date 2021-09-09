@@ -10,7 +10,15 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.myapplication.model.Item;
 import com.example.myapplication.network.APIManager;
+import com.example.myapplication.network.YoutubeAPI;
+import com.google.gson.JsonElement;
 
+import java.io.IOException;
+
+import okhttp3.HttpUrl;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -32,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         tvDate = findViewById(R.id.tvDate);
         ivCover = findViewById(R.id.ivCover);
 
-        getData();
+        loadVideoYoutube();
     }
 
     private void getData()
@@ -45,19 +53,62 @@ public class MainActivity extends AppCompatActivity {
         service.getItemData().enqueue(new Callback<Item>() {
             @Override
             public void onResponse(Call<Item> call, Response<Item> response) {
-                if (response.body() == null) {
-                    return;
-                }
-                Item model = response.body();
-                tvTitle.setText(model.getTitle());
-                tvDate.setText(model.getDate());
-                tvContent.setText(model.getContent().getDescription());
-                Glide.with(MainActivity.this).load(model.getImage()).into(ivCover);
+//                if (response.body() == null) {
+//                    return;
+//                }
+//                Item model = response.body();
+//                tvTitle.setText(model.getTitle());
+//                tvDate.setText(model.getDate());
+//                tvContent.setText(model.getContent().getDescription());
+//                Glide.with(MainActivity.this).load(model.getImage()).into(ivCover);
+                Log.d("hello", "hello: " + response.body());
             }
 
             @Override
             public void onFailure(Call<Item> call, Throwable t) {
                 Log.d("fail", "onFail: " + t);
+            }
+        });
+    }
+
+    private void loadVideoYoutube()
+    {
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(new Interceptor() {
+            @Override
+            public okhttp3.Response intercept(Chain chain) throws IOException {
+                Request request = chain.request();
+                HttpUrl url = request.url().newBuilder()
+                        .addQueryParameter("key", YoutubeAPI.API_KEY)
+                        .addQueryParameter("part", YoutubeAPI.API_PARAMETER_PART)
+                        .addQueryParameter("contentDetails", YoutubeAPI.API_PARAMETER_CONTENT_DETAIL)
+                        .build();
+                request = request.newBuilder().url(url).build();
+                return chain.proceed(request);
+            }
+        }).build();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(YoutubeAPI.API_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
+                .build();
+        YoutubeAPI youtubeAPI = retrofit.create(YoutubeAPI.class);
+        youtubeAPI.getDetail("PnocD2ruOY8").enqueue(new Callback<JsonElement>() {
+            @Override
+            public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
+                JsonElement jsonElement = response.body();
+
+                Log.d("Main", jsonElement.getAsJsonObject()
+                        .get("items").getAsJsonArray()
+                        .get(0).getAsJsonObject()
+                        .get("snippet").getAsJsonObject()
+                        .get("title").getAsString()
+                );
+            }
+
+            @Override
+            public void onFailure(Call<JsonElement> call, Throwable t) {
+
             }
         });
     }
