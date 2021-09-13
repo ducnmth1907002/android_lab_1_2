@@ -4,8 +4,17 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/android/MyApplication2/app/src/main/res/drawable/ic_launcher_background.xml" value="0.3828125" />
+        <entry key="..\:/android/MyApplication2/app/src/main/res/layout/activity_edit_user.xml" value="0.33" />
+        <entry key="..\:/android/MyApplication2/app/src/main/res/layout/activity_list_news.xml" value="0.36666666666666664" />
+        <entry key="..\:/android/MyApplication2/app/src/main/res/layout/activity_login.xml" value="0.22" />
         <entry key="..\:/android/MyApplication2/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/android/MyApplication2/app/src/main/res/layout/activity_profile.xml" value="0.33" />
+        <entry key="..\:/android/MyApplication2/app/src/main/res/layout/details_info.xml" value="0.36666666666666664" />
+        <entry key="..\:/android/MyApplication2/app/src/main/res/layout/fragment_first.xml" value="0.36666666666666664" />
+        <entry key="..\:/android/MyApplication2/app/src/main/res/layout/item_contact.xml" value="0.36666666666666664" />
+        <entry key="..\:/android/MyApplication2/app/src/main/res/layout/item_news.xml" value="0.36666666666666664" />
         <entry key="..\:/android/MyApplication2/app/src/main/res/layout/lab2_main.xml" value="0.33" />
+        <entry key="..\:/android/MyApplication2/app/src/main/res/layout/listitems_info.xml" value="0.36666666666666664" />
       </map>
     </option>
   </component>
