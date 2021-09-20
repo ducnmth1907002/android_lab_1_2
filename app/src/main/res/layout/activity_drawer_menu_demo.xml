@@ -14,20 +14,35 @@
         app:menu="@menu/main_menu"
         app:headerLayout="@layout/drawer_header"
         android:layout_gravity="start"/>
-    <ScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <androidx.appcompat.widget.Toolbar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:navigationIcon="@drawable/ic_baseline_menu_24"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
             android:background="@color/white"
-            android:id="@+id/drawer_toolbar">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="Hello"/>
-        </androidx.appcompat.widget.Toolbar>
-    </ScrollView>
+            android:id="@+id/drawer_toolbar"
+            android:layout_alignParentTop="true"
+            />
+        <FrameLayout
+            android:id="@+id/main_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="@+id/drawer_toolbar"
+            app:layout_constraintLeft_toLeftOf="@+id/drawer_toolbar"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/drawer_bottom_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:menu="@menu/bottom_menu"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_alignParentBottom="true"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.drawerlayout.widget.DrawerLayout>
