@@ -15,7 +15,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
-import java.io.StringReader;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 
